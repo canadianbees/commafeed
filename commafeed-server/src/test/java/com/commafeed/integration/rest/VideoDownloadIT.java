@@ -20,6 +20,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 
@@ -33,6 +35,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @QuarkusTest
+// the tests run a fake yt-dlp written as a shell script, which Windows can't execute
+@DisabledOnOs(value = OS.WINDOWS, disabledReason = "fake yt-dlp is a shell script")
 class VideoDownloadIT extends BaseIT {
 
     private Entry video;
