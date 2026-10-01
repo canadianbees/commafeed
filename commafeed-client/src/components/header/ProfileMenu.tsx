@@ -17,11 +17,15 @@ import {
     TbChartLine,
     TbHeartFilled,
     TbHelp,
+    TbLayoutColumns,
     TbLayoutList,
+    TbLayoutRows,
     TbList,
     TbListDetails,
     TbMoon,
     TbNotes,
+    TbPaint,
+    TbPalette,
     TbPower,
     TbSettings,
     TbSun,
@@ -33,9 +37,10 @@ import { throttle } from "throttle-debounce"
 import { client } from "@/app/client"
 import { redirectToAbout, redirectToAdminUsers, redirectToDonate, redirectToMetrics, redirectToSettings } from "@/app/redirect/thunks"
 import { useAppDispatch, useAppSelector } from "@/app/store"
-import type { ViewMode } from "@/app/types"
-import { setFontSizePercentage, setViewMode } from "@/app/user/slice"
+import type { Layout, Theme, ViewMode } from "@/app/types"
+import { setFontSizePercentage, setLayout, setTheme, setViewMode } from "@/app/user/slice"
 import { reloadProfile } from "@/app/user/thunks"
+import { useLayoutMode } from "@/hooks/useLayoutMode"
 import { useNow } from "@/hooks/useNow"
 
 interface ProfileMenuProps {
@@ -95,6 +100,36 @@ const viewModeData: ViewModeControlItem[] = [
     },
 ]
 
+interface LayoutControlItem extends SegmentedControlItem {
+    value: Layout
+}
+
+const layoutData: LayoutControlItem[] = [
+    {
+        value: "inline",
+        label: <ProfileMenuControlItem icon={<TbLayoutRows size={iconSize} />} label={<Trans>Inline</Trans>} />,
+    },
+    {
+        value: "readingPane",
+        label: <ProfileMenuControlItem icon={<TbLayoutColumns size={iconSize} />} label={<Trans>Reading pane</Trans>} />,
+    },
+]
+
+interface StyleControlItem extends SegmentedControlItem {
+    value: Theme
+}
+
+const styleData: StyleControlItem[] = [
+    {
+        value: "default",
+        label: <ProfileMenuControlItem icon={<TbPalette size={iconSize} />} label={<Trans>Default</Trans>} />,
+    },
+    {
+        value: "sand",
+        label: <ProfileMenuControlItem icon={<TbPaint size={iconSize} />} label={<Trans>Sand</Trans>} />,
+    },
+]
+
 export function ProfileMenu(props: Readonly<ProfileMenuProps>) {
     const [opened, setOpened] = useState(false)
 
@@ -109,6 +144,9 @@ export function ProfileMenu(props: Readonly<ProfileMenuProps>) {
     const profile = useAppSelector(state => state.user.profile)
     const admin = useAppSelector(state => state.user.profile?.admin)
     const viewMode = useAppSelector(state => state.user.localSettings.viewMode)
+    const layout = useAppSelector(state => state.user.localSettings.layout)
+    const theme = useAppSelector(state => state.user.localSettings.theme)
+    const layoutMode = useLayoutMode()
     const forceRefreshCooldownDuration = useAppSelector(state => state.server.serverInfos?.forceRefreshCooldownDuration)
     const fontSizePercentage = useAppSelector(state => state.user.localSettings.fontSizePercentage)
     const dispatch = useAppDispatch()
@@ -180,20 +218,33 @@ export function ProfileMenu(props: Readonly<ProfileMenuProps>) {
                     onChange={e => setColorScheme(e as MantineColorScheme)}
                     mb="xs"
                 />
+                <SegmentedControl fullWidth data={styleData} value={theme} onChange={e => dispatch(setTheme(e as Theme))} mb="xs" />
 
                 <Divider />
 
                 <Menu.Label>
                     <Trans>Display</Trans>
                 </Menu.Label>
-                <SegmentedControl
-                    fullWidth
-                    orientation="vertical"
-                    data={viewModeData}
-                    value={viewMode}
-                    onChange={e => dispatch(setViewMode(e as ViewMode))}
-                    mb="xs"
-                />
+                {
+                    <SegmentedControl
+                        fullWidth
+                        orientation="vertical"
+                        data={layoutData}
+                        value={layout}
+                        onChange={e => dispatch(setLayout(e as Layout))}
+                        mb="xs"
+                    />
+                }
+                {layoutMode === "inline" && (
+                    <SegmentedControl
+                        fullWidth
+                        orientation="vertical"
+                        data={viewModeData}
+                        value={viewMode}
+                        onChange={e => dispatch(setViewMode(e as ViewMode))}
+                        mb="xs"
+                    />
+                )}
 
                 <Divider />
 

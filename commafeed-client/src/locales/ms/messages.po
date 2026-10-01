@@ -13,6 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: formatDuration(timeLeft)
+#: src/components/reader/VideoDetails.tsx
+msgid "{0} left"
+msgstr ""
+
 #: src/pages/app/AboutPage.tsx
 msgid "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 msgstr "<0>CommaFeed ialah projek sumber terbuka. Sumber dihoskan pada </0><1>GitHub</1>."
@@ -66,6 +71,8 @@ msgstr "Nama pengguna pentadbir"
 
 #: src/components/content/add/CategorySelect.tsx
 #: src/components/header/Header.tsx
+#: src/components/reader/FilterToggle.tsx
+#: src/components/reader/TheaterRail.tsx
 #: src/components/sidebar/Tree.tsx
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedEntriesPage.tsx
@@ -140,6 +147,11 @@ msgstr "Tanda automatik sebagai dibaca"
 msgid "Back"
 msgstr "Kembali"
 
+#: src/components/reader/PhoneEntryView.tsx
+#: src/components/reader/ShortVideoView.tsx
+msgid "Back to entries"
+msgstr ""
+
 #: src/pages/auth/PasswordRecoveryPage.tsx
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Back to log in"
@@ -165,6 +177,11 @@ msgstr "Tab penyemak imbas"
 msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically."
 msgstr "Bina ungkapan penapis untuk menunjukkan perkara yang anda mahu baca. Entri yang tidak sepadan akan ditandakan sebagai dibaca secara automatik."
 
+#. placeholder {0}: entry.author
+#: src/components/reader/ReadingPane.tsx
+msgid "by {0}"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/content/add/AddCategory.tsx
 #: src/components/content/add/ImportOpml.tsx
@@ -189,6 +206,16 @@ msgstr "Kategori"
 #: src/components/settings/ProfileSettings.tsx
 msgid "Changing password will generate a new API key"
 msgstr "Menukar kata laluan akan menjana kunci API baharu"
+
+#. placeholder {0}: chapters.indexOf(currentChapter) + 1
+#. placeholder {1}: currentChapter.title
+#: src/components/reader/VideoPlayer.tsx
+msgid "Chapter {0} · {1}"
+msgstr ""
+
+#: src/components/reader/VideoChapters.tsx
+msgid "Chapters"
+msgstr ""
 
 #: src/components/content/add/Subscribe.tsx
 msgid "Check that the feed is working"
@@ -242,6 +269,11 @@ msgstr "Sahkan kata laluan"
 msgid "Confirm Password"
 msgstr "Sahkan Kata Laluan"
 
+#: src/components/content/DownloadableVideo.tsx
+#: src/components/reader/ShortVideoView.tsx
+msgid "Could not download video"
+msgstr ""
+
 #: src/components/header/ProfileMenu.tsx
 msgid "Cozy"
 msgstr "Nyaman"
@@ -287,6 +319,10 @@ msgstr "Tarikh dibuat"
 msgid "days"
 msgstr "hari"
 
+#: src/components/header/ProfileMenu.tsx
+msgid "Default"
+msgstr ""
+
 #: src/pages/app/CategoryDetailsPage.tsx
 msgid "Delete"
 msgstr "Padam"
@@ -329,6 +365,32 @@ msgstr "Derma"
 #: src/components/settings/ProfileSettings.tsx
 msgid "Download"
 msgstr "Muat turun"
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Download video"
+msgstr ""
+
+#: src/components/reader/ShortVideoView.tsx
+#: src/components/reader/VideoDetails.tsx
+msgid "Downloaded"
+msgstr ""
+
+#. placeholder {0}: formatBytes(status.size)
+#: src/components/reader/VideoDetails.tsx
+msgid "Downloaded · {0}"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Downloading audio…"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Downloading video…"
+msgstr ""
+
+#: src/components/reader/VideoChip.tsx
+msgid "Downloading video… {percent}%"
+msgstr ""
 
 #: src/pages/app/AboutPage.tsx
 msgid "Drag link to bookmark bar"
@@ -374,6 +436,15 @@ msgstr "Kepala entri"
 #: src/components/Alert.tsx
 msgid "Error"
 msgstr "Ralat"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Exit fullscreen"
+msgstr ""
+
+#: src/components/reader/TheaterToggle.tsx
+#: src/components/reader/VideoPlayer.tsx
+msgid "Exit theater"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Expanded"
@@ -424,6 +495,10 @@ msgstr "Pengambilan paksa suapan belum lagi tersedia."
 #: src/pages/auth/LoginPage.tsx
 msgid "Forgot password?"
 msgstr "Lupa kata laluan?"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Fullscreen"
+msgstr ""
 
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedDetailsPage.tsx
@@ -506,6 +581,10 @@ msgstr "Indigo"
 msgid "Initial Setup"
 msgstr "Persediaan Awal"
 
+#: src/components/header/ProfileMenu.tsx
+msgid "Inline"
+msgstr ""
+
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Invalid password reset link. Please request a new one."
 msgstr "Pautan tetapan semula kata laluan tidak sah. Sila minta yang baharu."
@@ -514,6 +593,10 @@ msgstr "Pautan tetapan semula kata laluan tidak sah. Sila minta yang baharu."
 #: src/components/content/FeedEntryFooter.tsx
 msgid "Keep unread"
 msgstr "Teruskan tidak dibaca"
+
+#: src/components/reader/TheaterToggle.tsx
+msgid "Keyboard shortcut: t"
+msgstr ""
 
 #: src/components/content/FeedEntries.tsx
 #: src/pages/app/AboutPage.tsx
@@ -553,6 +636,10 @@ msgstr "Pautan"
 #: src/components/settings/CustomCodeSettings.tsx
 msgid "Link to the documentation"
 msgstr "Pautan ke dokumentasi"
+
+#: src/components/reader/VideoDescription.tsx
+msgid "Loading description…"
+msgstr ""
 
 #: src/hooks/useAppLoading.ts
 msgid "Loading profile..."
@@ -597,6 +684,10 @@ msgstr "Tandai semua sebagai dibaca"
 msgid "Mark all entries as read"
 msgstr "Tandai semua entri sebagai dibaca"
 
+#: src/pages/app/FeedEntriesPage.tsx
+msgid "Mark all read"
+msgstr ""
+
 #: src/components/content/FeedEntryContextMenu.tsx
 #: src/components/content/FeedEntryFooter.tsx
 msgid "Mark as read"
@@ -610,6 +701,11 @@ msgstr "Tandai sebagai dibaca sehingga di sini"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Mark entries in this feed as read after this number of days. Leave empty to disable."
 msgstr "Tandakan entri dalam suapan ini sebagai dibaca selepas bilangan hari ini. Biarkan kosong untuk melumpuhkan."
+
+#: src/components/content/DownloadableVideo.tsx
+#: src/components/reader/VideoChip.tsx
+msgid "Merging video and audio…"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Metrics"
@@ -626,6 +722,10 @@ msgstr "Gerakkan halaman ke bawah"
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Move the page up"
 msgstr "Alih halaman ke atas"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Mute"
+msgstr ""
 
 #: src/components/RelativeDate.tsx
 #: src/pages/app/FeedDetailsPage.tsx
@@ -676,9 +776,17 @@ msgstr "Muat semula seterusnya"
 msgid "Next unread item bookmarklet"
 msgstr "Penanda buku item belum dibaca seterusnya"
 
+#: src/components/reader/ShortVideoView.tsx
+msgid "Next video"
+msgstr ""
+
 #: src/pages/app/FeedEntriesPage.tsx
 msgid "No more entries"
 msgstr "Tiada lagi penyertaan"
+
+#: src/components/reader/ShortVideoView.tsx
+msgid "No more videos"
+msgstr ""
 
 #: src/components/content/ShareButtons.tsx
 msgid "No sharing options available."
@@ -745,6 +853,18 @@ msgstr "Buka menu"
 msgid "Open next entry"
 msgstr "Buka entri seterusnya"
 
+#: src/components/reader/ShortVideoView.tsx
+msgid "Open on TikTok"
+msgstr ""
+
+#: src/components/reader/ShortVideoView.tsx
+msgid "Open on YouTube"
+msgstr ""
+
+#: src/components/reader/ShortVideoView.tsx
+msgid "Open original"
+msgstr ""
+
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Open previous entry"
 msgstr "Buka entri sebelumnya"
@@ -804,9 +924,25 @@ msgstr "Pemulihan Kata Laluan"
 msgid "Passwords do not match"
 msgstr "Kata laluan tidak sepadan"
 
+#: src/components/reader/VideoPlayer.tsx
+msgid "Pause"
+msgstr ""
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Picture in picture"
+msgstr ""
+
 #: src/components/settings/DisplaySettings.tsx
 msgid "Pink"
 msgstr "Merah jambu"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Play"
+msgstr ""
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Playback speed"
+msgstr ""
 
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedDetailsPage.tsx
@@ -842,6 +978,10 @@ msgstr "Pemberitahuan tolak tidak dikonfigurasikan dalam tetapan pengguna anda."
 msgid "Push notifications are not enabled on this CommaFeed instance."
 msgstr "Pemberitahuan tolak tidak didayakan pada contoh CommaFeed ini."
 
+#: src/components/header/ProfileMenu.tsx
+msgid "Reading pane"
+msgstr ""
+
 #: src/components/ReceivePushNotificationsChechbox.tsx
 msgid "Receive push notifications"
 msgstr "Terima pemberitahuan tolak"
@@ -867,6 +1007,14 @@ msgstr "Muat semula"
 msgid "Registrations are closed on this CommaFeed instance"
 msgstr "Pendaftaran ditutup pada contoh CommaFeed ini"
 
+#: src/components/reader/VideoDetails.tsx
+msgid "Removed in {daysLeft} days"
+msgstr ""
+
+#: src/components/reader/VideoDetails.tsx
+msgid "Removed tomorrow"
+msgstr ""
+
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Reset Password"
 msgstr "Tetap Semula Kata Laluan"
@@ -875,9 +1023,22 @@ msgstr "Tetap Semula Kata Laluan"
 msgid "REST API"
 msgstr "REHAT API"
 
+#: src/components/reader/VideoPlayer.tsx
+msgid "Resume"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+#: src/components/reader/ShortVideoView.tsx
+msgid "Retry"
+msgstr ""
+
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Right click"
 msgstr "Klik kanan"
+
+#: src/components/header/ProfileMenu.tsx
+msgid "Sand"
+msgstr ""
 
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/CustomCodeSettings.tsx
@@ -904,6 +1065,14 @@ msgstr "Menatal"
 #: src/components/sidebar/TreeSearch.tsx
 msgid "Search"
 msgstr "Cari"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Seek"
+msgstr ""
+
+#: src/components/reader/ReadingPane.tsx
+msgid "Select an entry to read it here."
+msgstr ""
 
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Select next unread feed/category"
@@ -934,6 +1103,7 @@ msgid "Settings saved."
 msgstr "Tetapan disimpan."
 
 #: src/components/content/FeedEntryFooter.tsx
+#: src/components/reader/ShortVideoView.tsx
 msgid "Share"
 msgstr "Kongsi"
 
@@ -1005,14 +1175,29 @@ msgstr "Angkasa"
 #: src/components/content/FeedEntryContextMenu.tsx
 #: src/components/content/FeedEntryFooter.tsx
 #: src/components/content/header/Star.tsx
+#: src/components/reader/ShortVideoView.tsx
 msgid "Star"
 msgstr "Bintang"
 
+#: src/components/reader/TheaterRail.tsx
 #: src/components/sidebar/Tree.tsx
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedEntriesPage.tsx
 msgid "Starred"
 msgstr "Dibintangi"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Start over"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Starting download…"
+msgstr ""
+
+#. placeholder {0}: formatDuration(props.entry.videoPosition)
+#: src/components/reader/EntryCard.tsx
+msgid "Stopped at {0}"
+msgstr ""
 
 #: src/components/content/add/Subscribe.tsx
 #: src/pages/app/AddPage.tsx
@@ -1051,6 +1236,10 @@ msgstr "Sistem"
 msgid "Tags"
 msgstr "Tag"
 
+#: src/components/reader/ShortVideoView.tsx
+msgid "Tap to unmute"
+msgstr ""
+
 #: src/components/settings/DisplaySettings.tsx
 msgid "Teal"
 msgstr "Teal"
@@ -1066,6 +1255,11 @@ msgstr "Pemberitahuan ujian berjaya dihantar."
 #: src/components/content/add/Subscribe.tsx
 msgid "The URL for the feed you want to subscribe to. You can also use the website's url directly and CommaFeed will try to find the feed in the page."
 msgstr "URL untuk suapan yang anda ingin langgan. "
+
+#: src/components/reader/TheaterToggle.tsx
+#: src/components/reader/VideoPlayer.tsx
+msgid "Theater"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Theme"
@@ -1096,6 +1290,10 @@ msgstr "Togol bar sisi"
 msgid "Toggle starred status of current entry"
 msgstr "Togol status berbintang entri semasa"
 
+#: src/components/KeyboardShortcutsHelp.tsx
+msgid "Toggle theater mode (videos, reading pane layout)"
+msgstr ""
+
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "Topik"
@@ -1108,13 +1306,19 @@ msgstr "Cuba CommaFeed dengan akaun demo: demo/demo"
 msgid "Try the demo!"
 msgstr "Cuba demo!"
 
+#: src/components/reader/VideoPlayer.tsx
+msgid "Unmute"
+msgstr ""
+
 #: src/components/header/Header.tsx
+#: src/components/reader/FilterToggle.tsx
 msgid "Unread"
 msgstr "Belum dibaca"
 
 #: src/components/content/FeedEntryContextMenu.tsx
 #: src/components/content/FeedEntryFooter.tsx
 #: src/components/content/header/Star.tsx
+#: src/components/reader/ShortVideoView.tsx
 msgid "Unstar"
 msgstr "Nyahbintang"
 
@@ -1134,9 +1338,33 @@ msgstr "Nama pengguna"
 msgid "User Name or E-mail"
 msgstr "Nama Pengguna atau E-mel"
 
+#: src/components/reader/VideoChip.tsx
+msgid "Video"
+msgstr ""
+
+#: src/components/reader/VideoChip.tsx
+msgid "Video · Download failed"
+msgstr ""
+
+#: src/components/reader/VideoChip.tsx
+msgid "Video · Downloaded"
+msgstr ""
+
+#: src/components/KeyboardShortcutsHelp.tsx
+msgid "Video player, when it has the focus: play and pause, go back and forward 5 seconds, mute, fullscreen"
+msgstr ""
+
 #: src/components/settings/DisplaySettings.tsx
 msgid "Violet"
 msgstr "Violet"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Volume"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Waiting to download…"
+msgstr ""
 
 #: src/components/Alert.tsx
 msgid "Warning"
@@ -1161,6 +1389,11 @@ msgstr "Kuning"
 #: src/pages/app/FeedEntriesPage.tsx
 msgid "You don't have any subscriptions yet. Why not try adding one by clicking on the + sign at the top of the page?"
 msgstr "Anda belum mempunyai sebarang langganan lagi. Mengapa tidak cuba menambah satu dengan mengklik pada tanda + di bahagian atas halaman?"
+
+#. placeholder {0}: formatDuration(resumeAt ?? 0)
+#: src/components/reader/VideoPlayer.tsx
+msgid "You stopped at {0}"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Your feeds have been queued for refresh."

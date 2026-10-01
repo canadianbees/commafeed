@@ -86,6 +86,10 @@ public interface CommaFeedConfiguration {
     @ConfigDocSection
     Websocket websocket();
 
+    /** Video download settings. */
+    @ConfigDocSection
+    VideoDownload videoDownload();
+
     /**
      * Duration to wait for the feed refresh engine and the task scheduler to stop when the
      * application is shutting down.
@@ -366,5 +370,52 @@ public interface CommaFeedConfiguration {
          */
         @WithDefault("30s")
         Duration treeReloadInterval();
+    }
+
+    interface VideoDownload {
+        /**
+         * Let users download videos of YouTube and TikTok feed entries on the server with yt-dlp
+         * and watch them in CommaFeed.
+         *
+         * <p>yt-dlp and ffmpeg need to be installed on the server. Make sure downloading videos is
+         * allowed where you use it.
+         */
+        @WithDefault("false")
+        boolean enabled();
+
+        /** Path to the yt-dlp executable. */
+        @WithDefault("yt-dlp")
+        String ytDlpPath();
+
+        /** Directory where downloaded videos are stored. */
+        @WithDefault("data/videos")
+        String cacheDirectory();
+
+        /** yt-dlp format selector (-f option) for YouTube videos. */
+        @WithDefault("bv*[height<=1080][ext=mp4]+ba[ext=m4a]/b[ext=mp4]/b")
+        String youtubeFormat();
+
+        /**
+         * yt-dlp format selector (-f option) for TikTok videos. H.264 is preferred because not all
+         * browsers can play the H.265 videos TikTok also serves.
+         */
+        @WithDefault("b[vcodec^=h264]/b[vcodec^=avc]/b[ext=mp4]/b")
+        String tiktokFormat();
+
+        /** Maximum number of videos being downloaded at the same time. */
+        @Positive
+        @WithDefault("2")
+        int maxConcurrentDownloads();
+
+        /** Maximum time allowed for a single video download. */
+        @WithDefault("30m")
+        Duration downloadTimeout();
+
+        /** Downloaded videos are deleted after this duration. */
+        @WithDefault("30d")
+        Duration retention();
+
+        /** Oldest videos are deleted when the total size of downloaded videos exceeds this. */
+        Optional<MemorySize> maxCacheSize();
     }
 }

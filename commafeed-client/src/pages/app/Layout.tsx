@@ -20,11 +20,14 @@ import { DisablePullToRefresh } from "@/components/DisablePullToRefresh"
 import { Loader } from "@/components/Loader"
 import { Logo } from "@/components/Logo"
 import { MarkAllAsReadConfirmationDialog } from "@/components/MarkAllAsReadConfirmationDialog"
+import { THEATER_RAIL_WIDTH, TheaterRail } from "@/components/reader/TheaterRail"
 import { OnDesktop } from "@/components/responsive/OnDesktop"
 import { OnMobile } from "@/components/responsive/OnMobile"
 import { useAppLoading } from "@/hooks/useAppLoading"
 import { useBrowserExtension } from "@/hooks/useBrowserExtension"
+import { useLayoutMode } from "@/hooks/useLayoutMode"
 import { useMobile } from "@/hooks/useMobile"
+import { useTheater } from "@/hooks/useTheater"
 import { useWebSocket } from "@/hooks/useWebSocket"
 import { LoadingPage } from "@/pages/LoadingPage"
 import { tss } from "@/tss"
@@ -35,8 +38,21 @@ interface LayoutProps {
     header: ReactNode
 }
 
-function LogoAndTitle() {
+function LogoAndTitle(props: Readonly<{ compact?: boolean }>) {
     const dispatch = useAppDispatch()
+    if (props.compact) {
+        // phones in the reading pane layout: the name only, next to the menu button
+        return (
+            <Title
+                order={4}
+                className="cf-logo-title cf-title"
+                onClick={async () => await dispatch(redirectToRootCategory())}
+                style={{ cursor: "pointer", whiteSpace: "nowrap" }}
+            >
+                CommaFeed
+            </Title>
+        )
+    }
     return (
         <Center
             className="cf-logo-title"
@@ -158,6 +174,9 @@ export default function Layout(props: Readonly<LayoutProps>) {
     const treeReloadInterval = useAppSelector(state => state.server.serverInfos?.treeReloadInterval)
     const mobileFooter = useAppSelector(state => state.user.settings?.mobileFooter)
     const sidebarWidth = useAppSelector(state => state.user.localSettings.sidebarWidth)
+    // in theater mode the sidebar shrinks to a rail of icons to give the video more room
+    const theater = useTheater()
+    const phoneLayout = useLayoutMode() === "phone"
     const headerInFooter = mobile && !isBrowserExtensionPopup && mobileFooter
     const dispatch = useAppDispatch()
     useWebSocket()
@@ -220,8 +239,9 @@ export default function Layout(props: Readonly<LayoutProps>) {
                     </Group>
                 )}
                 {!mobileMenuOpen && (
-                    <Group p="md">
+                    <Group p={phoneLayout ? "xs" : "md"} wrap="nowrap" gap="xs">
                         <Box>{burger}</Box>
+                        {phoneLayout && <LogoAndTitle compact />}
                         <Box style={{ flexGrow: 1 }}>{props.header}</Box>
                     </Group>
                 )}
@@ -263,7 +283,7 @@ export default function Layout(props: Readonly<LayoutProps>) {
                     header={{ height: Constants.layout.headerHeight, collapsed: headerInFooter }}
                     footer={{ height: Constants.layout.headerHeight, collapsed: !headerInFooter }}
                     navbar={{
-                        width: sidebarWidth,
+                        width: theater ? THEATER_RAIL_WIDTH : sidebarWidth,
                         breakpoint: Constants.layout.mobileBreakpoint,
                         collapsed: { mobile: !mobileMenuOpen, desktop: !props.sidebarVisible },
                     }}
@@ -273,37 +293,39 @@ export default function Layout(props: Readonly<LayoutProps>) {
                     <AppShell.Footer>{headerInFooter && header}</AppShell.Footer>
                     <AppShell.Navbar p={sidebarPadding}>
                         <AppShell.Section grow component={ScrollArea} mx="-sm" px="sm">
-                            <Box className={classes.sidebarContent}>{props.sidebar}</Box>
+                            {theater ? <TheaterRail /> : <Box className={classes.sidebarContent}>{props.sidebar}</Box>}
                         </AppShell.Section>
                     </AppShell.Navbar>
-                    <OnDesktop>
-                        <Draggable
-                            nodeRef={draggableSeparator as RefObject<HTMLElement>}
-                            axis="x"
-                            defaultPosition={{
-                                x: sidebarWidth,
-                                y: 0,
-                            }}
-                            bounds={{
-                                left: 120,
-                                right: 1000,
-                            }}
-                            grid={[30, 30]}
-                            onDrag={(_e, data) => {
-                                dispatch(setSidebarWidth(data.x))
-                            }}
-                        >
-                            <Box
-                                ref={draggableSeparator}
-                                style={{
-                                    position: "fixed",
-                                    height: "100%",
-                                    width: "10px",
-                                    cursor: "ew-resize",
+                    {!theater && (
+                        <OnDesktop>
+                            <Draggable
+                                nodeRef={draggableSeparator as RefObject<HTMLElement>}
+                                axis="x"
+                                defaultPosition={{
+                                    x: sidebarWidth,
+                                    y: 0,
                                 }}
-                            />
-                        </Draggable>
-                    </OnDesktop>
+                                bounds={{
+                                    left: 120,
+                                    right: 1000,
+                                }}
+                                grid={[30, 30]}
+                                onDrag={(_e, data) => {
+                                    dispatch(setSidebarWidth(data.x))
+                                }}
+                            >
+                                <Box
+                                    ref={draggableSeparator}
+                                    style={{
+                                        position: "fixed",
+                                        height: "100%",
+                                        width: "10px",
+                                        cursor: "ew-resize",
+                                    }}
+                                />
+                            </Draggable>
+                        </OnDesktop>
+                    )}
 
                     <AppShell.Main>
                         <Suspense fallback={<Loader />}>

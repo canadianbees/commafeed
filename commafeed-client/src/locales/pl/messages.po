@@ -13,6 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: formatDuration(timeLeft)
+#: src/components/reader/VideoDetails.tsx
+msgid "{0} left"
+msgstr ""
+
 #: src/pages/app/AboutPage.tsx
 msgid "<0>CommaFeed is an open-source project. Sources are hosted on </0><1>GitHub</1>."
 msgstr "<0>CommaFeed to projekt o otwartym kodzie źródłowym. Kod źródłowy znajduje się na </0><1>GitHub</1>."
@@ -66,6 +71,8 @@ msgstr "Nazwa użytkownika administratora"
 
 #: src/components/content/add/CategorySelect.tsx
 #: src/components/header/Header.tsx
+#: src/components/reader/FilterToggle.tsx
+#: src/components/reader/TheaterRail.tsx
 #: src/components/sidebar/Tree.tsx
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedEntriesPage.tsx
@@ -140,6 +147,11 @@ msgstr "Automatycznie oznaczaj jako przeczytane"
 msgid "Back"
 msgstr "Powrót"
 
+#: src/components/reader/PhoneEntryView.tsx
+#: src/components/reader/ShortVideoView.tsx
+msgid "Back to entries"
+msgstr ""
+
 #: src/pages/auth/PasswordRecoveryPage.tsx
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Back to log in"
@@ -165,6 +177,11 @@ msgstr "Karta przeglądarki"
 msgid "Build a filter expression to indicate what you want to read. Entries that don't match will be marked as read automatically."
 msgstr "Zbuduj wyrażenie filtrujące, aby wskazać, co chcesz czytać. Wpisy, które nie pasują, zostaną automatycznie oznaczone jako przeczytane."
 
+#. placeholder {0}: entry.author
+#: src/components/reader/ReadingPane.tsx
+msgid "by {0}"
+msgstr ""
+
 #: src/components/admin/UserEdit.tsx
 #: src/components/content/add/AddCategory.tsx
 #: src/components/content/add/ImportOpml.tsx
@@ -189,6 +206,16 @@ msgstr "Kategoria"
 #: src/components/settings/ProfileSettings.tsx
 msgid "Changing password will generate a new API key"
 msgstr "Zmiana hasła spowoduje wygenerowanie nowego klucza API"
+
+#. placeholder {0}: chapters.indexOf(currentChapter) + 1
+#. placeholder {1}: currentChapter.title
+#: src/components/reader/VideoPlayer.tsx
+msgid "Chapter {0} · {1}"
+msgstr ""
+
+#: src/components/reader/VideoChapters.tsx
+msgid "Chapters"
+msgstr ""
 
 #: src/components/content/add/Subscribe.tsx
 msgid "Check that the feed is working"
@@ -242,6 +269,11 @@ msgstr "Potwierdź hasło"
 msgid "Confirm Password"
 msgstr "Potwierdź hasło"
 
+#: src/components/content/DownloadableVideo.tsx
+#: src/components/reader/ShortVideoView.tsx
+msgid "Could not download video"
+msgstr ""
+
 #: src/components/header/ProfileMenu.tsx
 msgid "Cozy"
 msgstr "Przytulny"
@@ -287,6 +319,10 @@ msgstr "Data utworzenia"
 msgid "days"
 msgstr "dni"
 
+#: src/components/header/ProfileMenu.tsx
+msgid "Default"
+msgstr ""
+
 #: src/pages/app/CategoryDetailsPage.tsx
 msgid "Delete"
 msgstr "Usuń"
@@ -329,6 +365,32 @@ msgstr "Przekaż darowiznę"
 #: src/components/settings/ProfileSettings.tsx
 msgid "Download"
 msgstr "Pobierz"
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Download video"
+msgstr ""
+
+#: src/components/reader/ShortVideoView.tsx
+#: src/components/reader/VideoDetails.tsx
+msgid "Downloaded"
+msgstr ""
+
+#. placeholder {0}: formatBytes(status.size)
+#: src/components/reader/VideoDetails.tsx
+msgid "Downloaded · {0}"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Downloading audio…"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Downloading video…"
+msgstr ""
+
+#: src/components/reader/VideoChip.tsx
+msgid "Downloading video… {percent}%"
+msgstr ""
 
 #: src/pages/app/AboutPage.tsx
 msgid "Drag link to bookmark bar"
@@ -374,6 +436,15 @@ msgstr "Nagłówki wpisów"
 #: src/components/Alert.tsx
 msgid "Error"
 msgstr "Błąd"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Exit fullscreen"
+msgstr ""
+
+#: src/components/reader/TheaterToggle.tsx
+#: src/components/reader/VideoPlayer.tsx
+msgid "Exit theater"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Expanded"
@@ -424,6 +495,10 @@ msgstr "Wymuszanie pobierania kanałów nie jest jeszcze dostępne."
 #: src/pages/auth/LoginPage.tsx
 msgid "Forgot password?"
 msgstr "Zapomniałeś hasła?"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Fullscreen"
+msgstr ""
 
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedDetailsPage.tsx
@@ -506,6 +581,10 @@ msgstr "Indygo"
 msgid "Initial Setup"
 msgstr "Wstępna konfiguracja"
 
+#: src/components/header/ProfileMenu.tsx
+msgid "Inline"
+msgstr ""
+
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Invalid password reset link. Please request a new one."
 msgstr "Nieprawidłowy link do resetowania hasła. Proszę poprosić o nowy."
@@ -514,6 +593,10 @@ msgstr "Nieprawidłowy link do resetowania hasła. Proszę poprosić o nowy."
 #: src/components/content/FeedEntryFooter.tsx
 msgid "Keep unread"
 msgstr "Nie przeczytaj"
+
+#: src/components/reader/TheaterToggle.tsx
+msgid "Keyboard shortcut: t"
+msgstr ""
 
 #: src/components/content/FeedEntries.tsx
 #: src/pages/app/AboutPage.tsx
@@ -553,6 +636,10 @@ msgstr "Link"
 #: src/components/settings/CustomCodeSettings.tsx
 msgid "Link to the documentation"
 msgstr "Link do dokumentacji"
+
+#: src/components/reader/VideoDescription.tsx
+msgid "Loading description…"
+msgstr ""
 
 #: src/hooks/useAppLoading.ts
 msgid "Loading profile..."
@@ -597,6 +684,10 @@ msgstr "Oznacz wszystko jako przeczytane"
 msgid "Mark all entries as read"
 msgstr "Oznacz wszystkie wpisy jako przeczytane"
 
+#: src/pages/app/FeedEntriesPage.tsx
+msgid "Mark all read"
+msgstr ""
+
 #: src/components/content/FeedEntryContextMenu.tsx
 #: src/components/content/FeedEntryFooter.tsx
 msgid "Mark as read"
@@ -610,6 +701,11 @@ msgstr "Oznacz jako przeczytane do tej pory"
 #: src/pages/app/FeedDetailsPage.tsx
 msgid "Mark entries in this feed as read after this number of days. Leave empty to disable."
 msgstr "Oznaczaj wpisy w tym kanale jako przeczytane po tej liczbie dni. Pozostaw puste, aby wyłączyć."
+
+#: src/components/content/DownloadableVideo.tsx
+#: src/components/reader/VideoChip.tsx
+msgid "Merging video and audio…"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Metrics"
@@ -626,6 +722,10 @@ msgstr "Przesuń stronę w dół"
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Move the page up"
 msgstr "Przesuń stronę w górę"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Mute"
+msgstr ""
 
 #: src/components/RelativeDate.tsx
 #: src/pages/app/FeedDetailsPage.tsx
@@ -676,9 +776,17 @@ msgstr "Następne odświeżenie"
 msgid "Next unread item bookmarklet"
 msgstr "Następny nieprzeczytany element bookmarkletu"
 
+#: src/components/reader/ShortVideoView.tsx
+msgid "Next video"
+msgstr ""
+
 #: src/pages/app/FeedEntriesPage.tsx
 msgid "No more entries"
 msgstr "Nie ma więcej wpisów"
+
+#: src/components/reader/ShortVideoView.tsx
+msgid "No more videos"
+msgstr ""
 
 #: src/components/content/ShareButtons.tsx
 msgid "No sharing options available."
@@ -745,6 +853,18 @@ msgstr "Otwórz menu"
 msgid "Open next entry"
 msgstr "Otwórz następny wpis"
 
+#: src/components/reader/ShortVideoView.tsx
+msgid "Open on TikTok"
+msgstr ""
+
+#: src/components/reader/ShortVideoView.tsx
+msgid "Open on YouTube"
+msgstr ""
+
+#: src/components/reader/ShortVideoView.tsx
+msgid "Open original"
+msgstr ""
+
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Open previous entry"
 msgstr "Otwórz poprzedni wpis"
@@ -804,9 +924,25 @@ msgstr "Odzyskiwanie hasła"
 msgid "Passwords do not match"
 msgstr "Hasła nie pasują"
 
+#: src/components/reader/VideoPlayer.tsx
+msgid "Pause"
+msgstr ""
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Picture in picture"
+msgstr ""
+
 #: src/components/settings/DisplaySettings.tsx
 msgid "Pink"
 msgstr "Różowy"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Play"
+msgstr ""
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Playback speed"
+msgstr ""
 
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedDetailsPage.tsx
@@ -842,6 +978,10 @@ msgstr "Powiadomienia push nie są skonfigurowane w ustawieniach użytkownika."
 msgid "Push notifications are not enabled on this CommaFeed instance."
 msgstr "Powiadomienia push nie są włączone w tej instancji CommaFeed."
 
+#: src/components/header/ProfileMenu.tsx
+msgid "Reading pane"
+msgstr ""
+
 #: src/components/ReceivePushNotificationsChechbox.tsx
 msgid "Receive push notifications"
 msgstr "Otrzymuj powiadomienia push"
@@ -867,6 +1007,14 @@ msgstr "Odśwież"
 msgid "Registrations are closed on this CommaFeed instance"
 msgstr "Rejestracje są zamknięte w tej instancji CommaFeed"
 
+#: src/components/reader/VideoDetails.tsx
+msgid "Removed in {daysLeft} days"
+msgstr ""
+
+#: src/components/reader/VideoDetails.tsx
+msgid "Removed tomorrow"
+msgstr ""
+
 #: src/pages/auth/PasswordResetPage.tsx
 msgid "Reset Password"
 msgstr "Zresetuj hasło"
@@ -875,9 +1023,22 @@ msgstr "Zresetuj hasło"
 msgid "REST API"
 msgstr "REST API"
 
+#: src/components/reader/VideoPlayer.tsx
+msgid "Resume"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+#: src/components/reader/ShortVideoView.tsx
+msgid "Retry"
+msgstr ""
+
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Right click"
 msgstr "Prawe kliknięcie"
+
+#: src/components/header/ProfileMenu.tsx
+msgid "Sand"
+msgstr ""
 
 #: src/components/admin/UserEdit.tsx
 #: src/components/settings/CustomCodeSettings.tsx
@@ -904,6 +1065,14 @@ msgstr "Przewijanie"
 #: src/components/sidebar/TreeSearch.tsx
 msgid "Search"
 msgstr "Szukaj"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Seek"
+msgstr ""
+
+#: src/components/reader/ReadingPane.tsx
+msgid "Select an entry to read it here."
+msgstr ""
 
 #: src/components/KeyboardShortcutsHelp.tsx
 msgid "Select next unread feed/category"
@@ -934,6 +1103,7 @@ msgid "Settings saved."
 msgstr "Zapisano ustawienia."
 
 #: src/components/content/FeedEntryFooter.tsx
+#: src/components/reader/ShortVideoView.tsx
 msgid "Share"
 msgstr "Udostępnij"
 
@@ -1005,14 +1175,29 @@ msgstr "Przestrzeń"
 #: src/components/content/FeedEntryContextMenu.tsx
 #: src/components/content/FeedEntryFooter.tsx
 #: src/components/content/header/Star.tsx
+#: src/components/reader/ShortVideoView.tsx
 msgid "Star"
 msgstr "Gwiazda"
 
+#: src/components/reader/TheaterRail.tsx
 #: src/components/sidebar/Tree.tsx
 #: src/pages/app/CategoryDetailsPage.tsx
 #: src/pages/app/FeedEntriesPage.tsx
 msgid "Starred"
 msgstr "Oznaczone gwiazdką"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Start over"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Starting download…"
+msgstr ""
+
+#. placeholder {0}: formatDuration(props.entry.videoPosition)
+#: src/components/reader/EntryCard.tsx
+msgid "Stopped at {0}"
+msgstr ""
 
 #: src/components/content/add/Subscribe.tsx
 #: src/pages/app/AddPage.tsx
@@ -1051,6 +1236,10 @@ msgstr "Systemowy"
 msgid "Tags"
 msgstr "Tagi"
 
+#: src/components/reader/ShortVideoView.tsx
+msgid "Tap to unmute"
+msgstr ""
+
 #: src/components/settings/DisplaySettings.tsx
 msgid "Teal"
 msgstr "Morski"
@@ -1066,6 +1255,11 @@ msgstr "Testowe powiadomienie wysłane pomyślnie."
 #: src/components/content/add/Subscribe.tsx
 msgid "The URL for the feed you want to subscribe to. You can also use the website's url directly and CommaFeed will try to find the feed in the page."
 msgstr "URL kanału, który chcesz subskrybować. "
+
+#: src/components/reader/TheaterToggle.tsx
+#: src/components/reader/VideoPlayer.tsx
+msgid "Theater"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Theme"
@@ -1096,6 +1290,10 @@ msgstr "Przełącz pasek boczny"
 msgid "Toggle starred status of current entry"
 msgstr "Przełącz status oznaczenia gwiazdką bieżącego wpisu"
 
+#: src/components/KeyboardShortcutsHelp.tsx
+msgid "Toggle theater mode (videos, reading pane layout)"
+msgstr ""
+
 #: src/components/settings/PushNotificationSettings.tsx
 msgid "Topic"
 msgstr "Temat"
@@ -1108,13 +1306,19 @@ msgstr "Wypróbuj CommaFeed na koncie demo: demo/demo"
 msgid "Try the demo!"
 msgstr "Wypróbuj demo!"
 
+#: src/components/reader/VideoPlayer.tsx
+msgid "Unmute"
+msgstr ""
+
 #: src/components/header/Header.tsx
+#: src/components/reader/FilterToggle.tsx
 msgid "Unread"
 msgstr "Nieprzeczytane"
 
 #: src/components/content/FeedEntryContextMenu.tsx
 #: src/components/content/FeedEntryFooter.tsx
 #: src/components/content/header/Star.tsx
+#: src/components/reader/ShortVideoView.tsx
 msgid "Unstar"
 msgstr "Usuń gwiazdkę"
 
@@ -1134,9 +1338,33 @@ msgstr "Nazwa użytkownika"
 msgid "User Name or E-mail"
 msgstr "Nazwa użytkownika lub e-mail"
 
+#: src/components/reader/VideoChip.tsx
+msgid "Video"
+msgstr ""
+
+#: src/components/reader/VideoChip.tsx
+msgid "Video · Download failed"
+msgstr ""
+
+#: src/components/reader/VideoChip.tsx
+msgid "Video · Downloaded"
+msgstr ""
+
+#: src/components/KeyboardShortcutsHelp.tsx
+msgid "Video player, when it has the focus: play and pause, go back and forward 5 seconds, mute, fullscreen"
+msgstr ""
+
 #: src/components/settings/DisplaySettings.tsx
 msgid "Violet"
 msgstr "Fioletowy"
+
+#: src/components/reader/VideoPlayer.tsx
+msgid "Volume"
+msgstr ""
+
+#: src/components/content/DownloadableVideo.tsx
+msgid "Waiting to download…"
+msgstr ""
 
 #: src/components/Alert.tsx
 msgid "Warning"
@@ -1161,6 +1389,11 @@ msgstr "Żółty"
 #: src/pages/app/FeedEntriesPage.tsx
 msgid "You don't have any subscriptions yet. Why not try adding one by clicking on the + sign at the top of the page?"
 msgstr "Nie masz jeszcze żadnych subskrypcji. Może spróbujesz dodać jedną, klikając znak + u góry strony?"
+
+#. placeholder {0}: formatDuration(resumeAt ?? 0)
+#: src/components/reader/VideoPlayer.tsx
+msgid "You stopped at {0}"
+msgstr ""
 
 #: src/components/header/ProfileMenu.tsx
 msgid "Your feeds have been queued for refresh."

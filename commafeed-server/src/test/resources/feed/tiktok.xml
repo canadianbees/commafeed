@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+	<channel>
+		<title>CommaFeed TikTok test feed</title>
+		<link>https://www.tiktok.com/@commafeed</link>
+		<description>CommaFeed TikTok test feed description</description>
+		<item>
+			<title>TikTok 2</title>
+			<link>https://www.tiktok.com/@commafeed/photo/7000000000000000002</link>
+			<description>A photo post, not a video</description>
+			<pubDate>Fri, 29 Dec 2023 15:02:00 +0100</pubDate>
+		</item>
+		<item>
+			<title>TikTok 1</title>
+			<link>https://www.tiktok.com/@commafeed/video/7000000000000000001</link>
+			<description>TikTok 1 description</description>
+			<pubDate>Wed, 27 Dec 2023 22:24:00 +0100</pubDate>
+		</item>
+	</channel>
+</rss>

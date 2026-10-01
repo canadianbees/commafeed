@@ -66,6 +66,11 @@ export const entriesSlice = createSlice({
         setMarkAllAsReadConfirmationDialogOpen: (state, action: PayloadAction<boolean>) => {
             state.markAllAsReadConfirmationDialogOpen = action.payload
         },
+        setEntryVideoPosition: (state, action: PayloadAction<{ id: string; position?: number }>) => {
+            for (const e of state.entries.filter(e => e.id === action.payload.id)) {
+                e.videoPosition = action.payload.position
+            }
+        },
     },
     extraReducers: builder => {
         builder.addCase(markEntry.pending, (state, action) => {
@@ -124,4 +129,4 @@ export const entriesSlice = createSlice({
     },
 })
 
-export const { setSearch, setMarkAllAsReadConfirmationDialogOpen } = entriesSlice.actions
+export const { setSearch, setMarkAllAsReadConfirmationDialogOpen, setEntryVideoPosition } = entriesSlice.actions

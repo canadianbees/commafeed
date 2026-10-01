@@ -32,23 +32,36 @@ import { PasswordRecoveryPage } from "@/pages/auth/PasswordRecoveryPage"
 import { PasswordResetPage } from "@/pages/auth/PasswordResetPage"
 import { RegistrationPage } from "@/pages/auth/RegistrationPage"
 import { WelcomePage } from "@/pages/WelcomePage"
+import { sandRed, withThemeTokens } from "@/theme/tokens"
 
 function Providers(
     props: Readonly<{
         children: React.ReactNode
     }>
 ) {
-    const primaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
+    const userPrimaryColor = useAppSelector(state => state.user.settings?.primaryColor) || Constants.theme.defaultPrimaryColor
+    const theme = useAppSelector(state => state.user.localSettings.theme)
+    const sand = theme === "sand"
+
+    // lets the theme's stylesheet target the header and sidebar (see theme/sand.css)
+    useEffect(() => {
+        document.documentElement.dataset.cfTheme = theme
+    }, [theme])
+
     return (
         <I18nProvider i18n={i18n}>
             <MantineProvider
                 defaultColorScheme="auto"
                 // keep using css variables from mantine v8
-                cssVariablesResolver={v8CssVariablesResolver}
+                cssVariablesResolver={withThemeTokens(v8CssVariablesResolver, theme)}
                 theme={{
-                    primaryColor: primaryColor,
-                    fontFamily: "Open Sans",
+                    // the sand theme has its own accent color, the user's primary color setting only applies to the default theme
+                    primaryColor: sand ? "sandRed" : userPrimaryColor,
+                    fontFamily: sand ? "Space Grotesk, sans-serif" : "Open Sans",
+                    // only override headings for the sand theme, an undefined value would remove mantine's defaults
+                    ...(sand ? { headings: { fontFamily: "Space Grotesk, sans-serif", fontWeight: "700" } } : {}),
                     colors: {
+                        sandRed,
                         // keep using dark colors from mantine v6
                         // https://v6.mantine.dev/theming/colors/#default-colors
                         dark: [
@@ -132,8 +145,10 @@ function RedirectHandler() {
     const navigate = useNavigate()
     useEffect(() => {
         if (target) {
-            // pages can subscribe to state.timestamp in order to refresh when navigating to an url matching the current page
-            navigate(target, { state: { timestamp: new Date() } })
+            // pages can subscribe to state.timestamp in order to refresh when navigating to an url matching the current page.
+            // A number and not a Date: the browser history returns a copy of the state (e.g. when going back), a copied
+            // Date is a different object and would look like a new navigation, reloading the page.
+            navigate(target, { state: { timestamp: Date.now() } })
             dispatch(redirectTo(undefined))
         }
     }, [target, dispatch, navigate])

@@ -35,6 +35,13 @@ public class FeedEntryStatus extends AbstractModel {
 
     private boolean starred;
 
+    /**
+     * where the user stopped watching the video of the entry, in seconds. null if not started or
+     * finished
+     */
+    @Column(name = "video_position")
+    private Double videoPosition;
+
     @Transient private boolean markable;
 
     @Transient private List<FeedEntryTag> tags = new ArrayList<>();

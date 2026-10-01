@@ -82,6 +82,36 @@ export interface Entry {
     starred: boolean
     markable: boolean
     tags: string[]
+    downloadableVideo: boolean
+    /** where the user stopped watching the video, in seconds */
+    videoPosition?: number
+}
+
+export type VideoDownloadState = "NONE" | "QUEUED" | "DOWNLOADING" | "DONE" | "FAILED"
+
+export type VideoDownloadStage = "VIDEO" | "AUDIO" | "MERGING"
+
+export interface VideoDownloadStatus {
+    status: VideoDownloadState
+    error?: string
+    stage?: VideoDownloadStage
+    progress?: number
+    speed?: number
+    eta?: number
+    size?: number
+    downloadedAt?: number
+    expiresAt?: number
+}
+
+export interface VideoChapter {
+    startTime: number
+    title: string
+}
+
+export interface VideoInfo {
+    description?: string
+    duration?: number
+    chapters: VideoChapter[]
 }
 
 export interface Entries {
@@ -241,6 +271,7 @@ export interface ServerInfo {
     initialSetupRequired: boolean
     minimumPasswordLength: number
     pushNotificationsEnabled: boolean
+    videoDownloadEnabled: boolean
 }
 
 export interface SharingSettings {
@@ -288,11 +319,19 @@ export interface Settings {
     pushNotificationSettings: PushNotificationSettings
 }
 
+export type Layout = "inline" | "readingPane"
+
+export type Theme = "default" | "sand"
+
 export interface LocalSettings {
     viewMode: ViewMode
     sidebarWidth: number
     announcementHash: string
     fontSizePercentage: number
+    layout: Layout
+    theme: Theme
+    /** whether the chapter list of videos is folded */
+    chaptersCollapsed: boolean
 }
 
 export interface StarRequest {

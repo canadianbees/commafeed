@@ -63,6 +63,7 @@ public class ServerREST {
         infos.setInitialSetupRequired(databaseStartupService.isInitialSetupRequired());
         infos.setMinimumPasswordLength(config.users().minimumPasswordLength());
         infos.setPushNotificationsEnabled(config.pushNotifications().enabled());
+        infos.setVideoDownloadEnabled(config.videoDownload().enabled());
         return infos;
     }
 

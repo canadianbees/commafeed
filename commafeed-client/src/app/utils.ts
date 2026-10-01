@@ -67,3 +67,24 @@ export const scrollToWithCallback = ({ options, onScrollEnded }: { options: Scro
 }
 
 export const truncate = (str: string, n: number) => (str.length > n ? `${str.slice(0, n - 1)}\u2026` : str)
+
+/** Human readable size, e.g. "328 MB". */
+export const formatBytes = (bytes: number) => {
+    const units = ["B", "KB", "MB", "GB", "TB"]
+    let value = bytes
+    let unit = 0
+    while (value >= 1024 && unit < units.length - 1) {
+        value /= 1024
+        unit++
+    }
+    return `${value.toFixed(unit < 2 ? 0 : 1).replace(/\.0$/, "")} ${units[unit]}`
+}
+
+/** Video length, e.g. "25:31" or "1:02:15". */
+export const formatDuration = (totalSeconds: number) => {
+    const seconds = Math.floor(totalSeconds % 60)
+    const minutes = Math.floor((totalSeconds / 60) % 60)
+    const hours = Math.floor(totalSeconds / 3600)
+    const pad = (n: number) => String(n).padStart(2, "0")
+    return hours > 0 ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${minutes}:${pad(seconds)}`
+}

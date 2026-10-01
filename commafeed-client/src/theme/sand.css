@@ -1,0 +1,80 @@
+/*
+ * Header and sidebar styles of the "sand" theme.
+ * Only active when the theme is selected (<html data-cf-theme="sand">), the default theme is not affected.
+ * Colors come from the --cf-* tokens defined in tokens.ts so that light and dark mode share these rules.
+ */
+
+/* header */
+[data-cf-theme="sand"] .mantine-AppShell-header,
+[data-cf-theme="sand"] .mantine-AppShell-footer {
+    background-color: var(--cf-header-bg);
+    border-bottom: 2px solid var(--cf-header-border);
+    color: var(--cf-header-text);
+}
+
+[data-cf-theme="sand"] .cf-logo-title .cf-title {
+    color: var(--cf-header-text);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+[data-cf-theme="sand"] .mantine-AppShell-header .mantine-Button-root,
+[data-cf-theme="sand"] .mantine-AppShell-header .mantine-ActionIcon-root {
+    color: var(--cf-header-text);
+}
+
+[data-cf-theme="sand"] .mantine-AppShell-header svg {
+    color: var(--cf-header-icon);
+}
+
+/* sidebar */
+[data-cf-theme="sand"] .mantine-AppShell-navbar {
+    background-color: var(--cf-sidebar-bg);
+    border-right: 1px solid var(--cf-sidebar-border);
+}
+
+[data-cf-theme="sand"] .cf-treenode {
+    color: var(--cf-sidebar-text);
+    border-radius: var(--cf-radius);
+}
+
+[data-cf-theme="sand"] .cf-treenode:hover {
+    background-color: var(--cf-sidebar-active-bg);
+    color: var(--cf-sidebar-heading);
+}
+
+[data-cf-theme="sand"] .cf-treenode[data-selected="true"] {
+    background-color: var(--cf-sidebar-active-bg);
+    color: var(--cf-sidebar-heading);
+    font-weight: 600;
+}
+
+[data-cf-theme="sand"] .cf-treenode-category {
+    color: var(--cf-sidebar-heading);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+[data-cf-theme="sand"] .cf-treenode svg {
+    color: var(--cf-sidebar-text);
+}
+
+[data-cf-theme="sand"] .cf-treesearch input {
+    background-color: var(--cf-sidebar-input-bg);
+    border: 1px solid var(--cf-header-border);
+    border-radius: var(--cf-radius);
+    color: var(--cf-sidebar-heading);
+}
+
+[data-cf-theme="sand"] .cf-badge {
+    background-color: var(--cf-accent);
+    color: var(--cf-on-accent);
+    border-radius: var(--cf-radius);
+}
+
+/* page */
+[data-cf-theme="sand"] .mantine-AppShell-main {
+    background-color: var(--cf-bg);
+}

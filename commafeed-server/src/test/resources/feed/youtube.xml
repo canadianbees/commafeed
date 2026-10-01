@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+	<channel>
+		<title>CommaFeed YouTube test feed</title>
+		<link>https://www.youtube.com/channel/test</link>
+		<description>CommaFeed YouTube test feed description</description>
+		<item>
+			<title>Video 2</title>
+			<link>https://www.youtube.com/watch?v=fail0000000</link>
+			<description>Video 2 description</description>
+			<pubDate>Fri, 29 Dec 2023 15:02:00 +0100</pubDate>
+		</item>
+		<item>
+			<title>Video 1</title>
+			<link>https://www.youtube.com/watch?v=vid00000001</link>
+			<description>Video 1 description</description>
+			<pubDate>Wed, 27 Dec 2023 22:24:00 +0100</pubDate>
+		</item>
+	</channel>
+</rss>

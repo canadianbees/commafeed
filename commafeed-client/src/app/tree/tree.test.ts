@@ -7,8 +7,6 @@ import { type RootState, reducers } from "@/app/store"
 import { newFeedEntriesDiscovered, selectNextUnreadTreeItem } from "@/app/tree/thunks"
 import type { Category, Entries, Entry, Subscription } from "@/app/types"
 
-vi.mock(import("@/app/client"))
-
 const createCategory = (id: string): Category => ({
     id,
     name: id,

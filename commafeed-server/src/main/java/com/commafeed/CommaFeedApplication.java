@@ -3,6 +3,7 @@ package com.commafeed;
 import com.commafeed.backend.feed.FeedRefreshEngine;
 import com.commafeed.backend.feed.ImageProxyUrl;
 import com.commafeed.backend.task.TaskScheduler;
+import com.commafeed.backend.video.VideoDownloadService;
 import com.commafeed.security.password.PasswordConstraintValidator;
 
 import io.quarkus.runtime.ShutdownEvent;
@@ -23,6 +24,7 @@ public class CommaFeedApplication {
 
     private final FeedRefreshEngine feedRefreshEngine;
     private final TaskScheduler taskScheduler;
+    private final VideoDownloadService videoDownloadService;
     private final CommaFeedConfiguration config;
 
     public void start(@Observes StartupEvent ev) {
@@ -55,5 +57,6 @@ public class CommaFeedApplication {
 
         feedRefreshEngine.stop();
         taskScheduler.stop();
+        videoDownloadService.stop();
     }
 }

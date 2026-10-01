@@ -18,13 +18,20 @@ import {
     starEntry,
 } from "@/app/entries/thunks"
 import { redirectToRootCategory } from "@/app/redirect/thunks"
+import { getScrollContainer, scrollReadingPane } from "@/app/scrollContainers"
 import { useAppDispatch, useAppSelector } from "@/app/store"
 import { toggleSidebar } from "@/app/tree/slice"
 import { selectNextUnreadTreeItem } from "@/app/tree/thunks"
+import { setTheater } from "@/app/videos/slice"
 import { KeyboardShortcutsHelp } from "@/components/KeyboardShortcutsHelp"
 import { Loader } from "@/components/Loader"
+import { EntryCard } from "@/components/reader/EntryCard"
+import { useEntryView } from "@/components/reader/PhoneEntryView"
 import { useBrowserExtension } from "@/hooks/useBrowserExtension"
+import { useLayoutMode } from "@/hooks/useLayoutMode"
 import { useMousetrap } from "@/hooks/useMousetrap"
+import { useReadingPane } from "@/hooks/useReadingPane"
+import { useLoadVideoStatuses } from "@/hooks/useVideoStatuses"
 import { FeedEntry } from "./FeedEntry"
 
 export function FeedEntries() {
@@ -37,6 +44,14 @@ export function FeedEntries() {
     const sidebarVisible = useAppSelector(state => state.tree.sidebarVisible)
     const customContextMenu = useAppSelector(state => state.user.settings?.customContextMenu)
     const viewMode = useAppSelector(state => state.user.localSettings.viewMode)
+    const readingPane = useReadingPane()
+    // phones in the reading pane layout: card list, entries open full screen
+    const phone = useLayoutMode() === "phone"
+    const cards = readingPane || phone
+    const { openView } = useEntryView()
+    const theater = useAppSelector(state => state.videos.theater)
+    const videoDownloadEnabled = useAppSelector(state => state.server.serverInfos?.videoDownloadEnabled)
+    useLoadVideoStatuses(cards ? entries : [])
     const dispatch = useAppDispatch()
     const { openLinkInBackgroundTab } = useBrowserExtension()
 
@@ -44,7 +59,16 @@ export function FeedEntries() {
 
     const headerClicked = (entry: ExpendableEntry, event: React.MouseEvent) => {
         const middleClick = event.button === 1 || event.ctrlKey || event.metaKey
-        if (middleClick || viewMode === "expanded") {
+        if (phone && !middleClick && event.button === 0) {
+            // open the entry full screen instead of following the link
+            event.preventDefault()
+            dispatch(selectEntry({ entry, expand: false, markAsRead: true, scrollToEntry: false }))
+            openView()
+        } else if (readingPane && !middleClick && event.button === 0) {
+            // show the entry in the reading pane instead of following the link
+            event.preventDefault()
+            dispatch(selectEntry({ entry, expand: false, markAsRead: true, scrollToEntry: true }))
+        } else if (middleClick || viewMode === "expanded") {
             dispatch(markEntry({ entry, read: true }))
         } else if (event.button === 0) {
             // main click
@@ -101,6 +125,7 @@ export function FeedEntries() {
     useEffect(() => {
         const listener = throttle(100, () => {
             if (viewMode !== "expanded") return
+            if (cards) return
             if (scrollingToEntry) return
 
             const currentEntry = entries
@@ -124,7 +149,7 @@ export function FeedEntries() {
         })
         window.addEventListener("scroll", listener)
         return () => window.removeEventListener("scroll", listener)
-    }, [dispatch, entries, viewMode, scrollMarks, scrollingToEntry])
+    }, [dispatch, entries, viewMode, cards, scrollMarks, scrollingToEntry])
 
     useMousetrap("r", async () => await dispatch(reloadEntries()))
     useMousetrap(
@@ -174,6 +199,13 @@ export function FeedEntries() {
     useMousetrap("shift+j", async () => await dispatch(selectNextUnreadTreeItem({ direction: "forward" })))
     useMousetrap("shift+k", async () => await dispatch(selectNextUnreadTreeItem({ direction: "backward" })))
     useMousetrap("space", () => {
+        if (readingPane) {
+            // page through the selected entry, then go to the next one
+            if (!selectedEntry || !scrollReadingPane("down")) {
+                dispatch(selectNextEntry({ expand: false, markAsRead: true, scrollToEntry: true }))
+            }
+            return
+        }
         if (selectedEntry) {
             if (selectedEntry.expanded) {
                 const entryElement = document.getElementById(Constants.dom.entryId(selectedEntry))
@@ -212,6 +244,12 @@ export function FeedEntries() {
         }
     })
     useMousetrap("shift+space", () => {
+        if (readingPane) {
+            if (selectedEntry && !scrollReadingPane("up")) {
+                dispatch(selectPreviousEntry({ expand: false, markAsRead: true, scrollToEntry: true }))
+            }
+            return
+        }
         if (selectedEntry) {
             if (selectedEntry.expanded) {
                 const entryElement = document.getElementById(Constants.dom.entryId(selectedEntry))
@@ -241,8 +279,8 @@ export function FeedEntries() {
         }
     })
     useMousetrap(["o", "enter"], () => {
-        // toggle expanded status
-        if (!selectedEntry) return
+        // toggle expanded status, entries are always displayed in the reading pane
+        if (!selectedEntry || readingPane) return
         dispatch(
             selectEntry({
                 entry: selectedEntry,
@@ -277,6 +315,13 @@ export function FeedEntries() {
     })
     useMousetrap("g a", async () => await dispatch(redirectToRootCategory()))
     useMousetrap("f", () => dispatch(toggleSidebar()))
+    useMousetrap("t", () => {
+        // theater mode only applies to videos shown in the reading pane
+        if (readingPane && videoDownloadEnabled && selectedEntry?.downloadableVideo) dispatch(setTheater(!theater))
+    })
+    useMousetrap("esc", () => {
+        if (theater) dispatch(setTheater(false))
+    })
     useMousetrap("?", () =>
         openModal({
             title: <Trans>Keyboard shortcuts</Trans>,
@@ -284,6 +329,33 @@ export function FeedEntries() {
             children: <KeyboardShortcutsHelp />,
         })
     )
+
+    if (cards) {
+        return (
+            <InfiniteScroll
+                className="cf-entries cf-reading-pane-entries"
+                initialLoad={false}
+                loadMore={async () => await (!loading && dispatch(loadMoreEntries()))}
+                hasMore={hasMore}
+                loader={<Box key={0}>{loading && <Loader />}</Box>}
+                // the list scrolls in its own column next to the reading pane, and with the page on phones
+                useWindow={!readingPane}
+                getScrollParent={readingPane ? () => getScrollContainer("entries") ?? null : undefined}
+            >
+                {entries.map(entry => (
+                    <EntryCard
+                        key={entry.id}
+                        entry={entry}
+                        selected={entry.id === selectedEntryId}
+                        onClick={event => headerClicked(entry, event)}
+                        onRightClick={event => headerRightClicked(entry, event)}
+                        onSwipedLeft={phone ? async () => await swipedLeft(entry) : undefined}
+                        unreadEdge={phone}
+                    />
+                ))}
+            </InfiniteScroll>
+        )
+    }
 
     return (
         <InfiniteScroll

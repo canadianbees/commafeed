@@ -6,6 +6,7 @@ import com.commafeed.backend.model.FeedEntryContent;
 import com.commafeed.backend.model.FeedEntryStatus;
 import com.commafeed.backend.model.FeedEntryTag;
 import com.commafeed.backend.model.FeedSubscription;
+import com.commafeed.backend.video.VideoUrlParser;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
@@ -105,6 +106,16 @@ public class Entry implements Serializable {
     @Schema(description = "tags", required = true)
     private List<String> tags;
 
+    @Schema(
+            description = "whether the entry is a YouTube or TikTok video that can be downloaded",
+            required = true)
+    private boolean downloadableVideo;
+
+    @Schema(
+            description =
+                    "where the user stopped watching the video of the entry, in seconds, if any")
+    private Double videoPosition;
+
     public static Entry build(FeedEntryStatus status, boolean proxyImages) {
         Entry entry = new Entry();
 
@@ -117,9 +128,11 @@ public class Entry implements Serializable {
         entry.setRead(status.isRead());
         entry.setStarred(status.isStarred());
         entry.setMarkable(status.isMarkable());
+        entry.setVideoPosition(status.getVideoPosition());
         entry.setDate(feedEntry.getPublished());
         entry.setInsertedDate(feedEntry.getInserted());
         entry.setUrl(feedEntry.getUrl());
+        entry.setDownloadableVideo(VideoUrlParser.parse(feedEntry.getUrl()).isPresent());
         entry.setFeedName(sub.getTitle());
         entry.setFeedId(String.valueOf(sub.getId()));
         entry.setFeedUrl(sub.getFeed().getUrl());

@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro"
 import { showNotification } from "@mantine/notifications"
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
-import type { LocalSettings, Settings, UserModel, ViewMode } from "@/app/types"
+import type { Layout, LocalSettings, Settings, Theme, UserModel, ViewMode } from "@/app/types"
 import { changeSettings, reloadProfile, reloadSettings, reloadTags } from "./thunks"
 
 interface UserState {
@@ -16,6 +16,9 @@ export const initialLocalSettings: LocalSettings = {
     sidebarWidth: 360,
     announcementHash: "no-hash",
     fontSizePercentage: 100,
+    layout: "inline",
+    theme: "default",
+    chaptersCollapsed: false,
 }
 
 const initialState: UserState = {
@@ -37,6 +40,15 @@ export const userSlice = createSlice({
         },
         setAnnouncementHash: (state, action: PayloadAction<string>) => {
             state.localSettings.announcementHash = action.payload
+        },
+        setLayout: (state, action: PayloadAction<Layout>) => {
+            state.localSettings.layout = action.payload
+        },
+        setTheme: (state, action: PayloadAction<Theme>) => {
+            state.localSettings.theme = action.payload
+        },
+        setChaptersCollapsed: (state, action: PayloadAction<boolean>) => {
+            state.localSettings.chaptersCollapsed = action.payload
         },
     },
     extraReducers: builder => {
@@ -62,4 +74,5 @@ export const userSlice = createSlice({
     },
 })
 
-export const { setViewMode, setSidebarWidth, setAnnouncementHash, setFontSizePercentage } = userSlice.actions
+export const { setViewMode, setSidebarWidth, setAnnouncementHash, setFontSizePercentage, setLayout, setTheme, setChaptersCollapsed } =
+    userSlice.actions

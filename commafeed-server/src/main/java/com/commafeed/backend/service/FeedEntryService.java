@@ -114,6 +114,28 @@ public class FeedEntryService {
         feedEntryStatusDAO.merge(status);
     }
 
+    /**
+     * Saves where the user stopped watching the video of the entry, or clears it with null.
+     *
+     * @return false if the entry doesn't exist or the user isn't subscribed to its feed
+     */
+    public boolean saveVideoPosition(User user, Long entryId, Double position) {
+        FeedEntry entry = feedEntryDAO.findById(entryId);
+        if (entry == null) {
+            return false;
+        }
+
+        FeedSubscription sub = feedSubscriptionDAO.findByFeed(user, entry.getFeed());
+        if (sub == null) {
+            return false;
+        }
+
+        FeedEntryStatus status = feedEntryStatusDAO.getStatus(user, sub, entry);
+        status.setVideoPosition(position);
+        feedEntryStatusDAO.merge(status);
+        return true;
+    }
+
     public void markSubscriptionEntries(
             User user,
             List<FeedSubscription> subscriptions,

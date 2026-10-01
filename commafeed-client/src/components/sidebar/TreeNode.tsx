@@ -78,6 +78,7 @@ export function TreeNode(props: Readonly<TreeNodeProps>) {
             onClick={(e: React.MouseEvent) => props.onClick(e, props.id)}
             data-id={props.id}
             data-type={props.type}
+            data-selected={props.selected}
             data-unread-count={props.unread}
         >
             <Box mr={6} onClick={(e: React.MouseEvent) => props.onIconClick?.(e, props.id)} className="cf-treenode-icon">

@@ -223,6 +223,24 @@ export function KeyboardShortcutsHelp() {
                     </Table.Tr>
                     <Table.Tr>
                         <Table.Td>
+                            <Trans>Toggle theater mode (videos, reading pane layout)</Trans>
+                        </Table.Td>
+                        <Table.Td>
+                            <Kbd>T</Kbd>
+                        </Table.Td>
+                    </Table.Tr>
+                    <Table.Tr>
+                        <Table.Td>
+                            <Trans>
+                                Video player, when it has the focus: play and pause, go back and forward 5 seconds, mute, fullscreen
+                            </Trans>
+                        </Table.Td>
+                        <Table.Td>
+                            <Kbd>Space</Kbd> <Kbd>←</Kbd> <Kbd>→</Kbd> <Kbd>M</Kbd> <Kbd>F</Kbd>
+                        </Table.Td>
+                    </Table.Tr>
+                    <Table.Tr>
+                        <Table.Td>
                             <Trans>Show keyboard shortcut help</Trans>
                         </Table.Td>
                         <Table.Td>

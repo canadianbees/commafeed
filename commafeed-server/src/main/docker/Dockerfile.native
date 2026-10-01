@@ -3,6 +3,29 @@ ARG TARGETARCH
 
 EXPOSE 8082
 
+# yt-dlp, ffmpeg and deno for downloading YouTube and TikTok videos (commafeed.video-download.enabled)
+# renovate: datasource=github-releases depName=yt-dlp/yt-dlp
+ARG YT_DLP_VERSION=2026.08.19
+# renovate: datasource=github-releases depName=denoland/deno extractVersion=^v(?<version>.*)$
+ARG DENO_VERSION=2.9.7
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ffmpeg ca-certificates curl unzip \
+    && case "${TARGETARCH}" in \
+        amd64) YT_DLP_ASSET=yt-dlp_linux; DENO_ARCH=x86_64 ;; \
+        arm64) YT_DLP_ASSET=yt-dlp_linux_aarch64; DENO_ARCH=aarch64 ;; \
+        *) echo "unsupported architecture ${TARGETARCH}" && exit 1 ;; \
+    esac \
+    && curl -fsSLo /usr/local/bin/yt-dlp "https://github.com/yt-dlp/yt-dlp/releases/download/${YT_DLP_VERSION}/${YT_DLP_ASSET}" \
+    && curl -fsSL "https://github.com/yt-dlp/yt-dlp/releases/download/${YT_DLP_VERSION}/SHA2-256SUMS" \
+        | grep " ${YT_DLP_ASSET}$" | sed "s| ${YT_DLP_ASSET}$| /usr/local/bin/yt-dlp|" | sha256sum -c - \
+    && chmod +x /usr/local/bin/yt-dlp \
+    && curl -fsSLo /tmp/deno.zip "https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno-${DENO_ARCH}-unknown-linux-gnu.zip" \
+    && unzip /tmp/deno.zip -d /usr/local/bin \
+    && rm /tmp/deno.zip \
+    && apt-get purge -y curl unzip \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /commafeed/data
 VOLUME /commafeed/data
 

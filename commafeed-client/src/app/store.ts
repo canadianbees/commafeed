@@ -6,6 +6,7 @@ import { serverSlice } from "@/app/server/slice"
 import { treeSlice } from "@/app/tree/slice"
 import type { LocalSettings } from "@/app/types"
 import { initialLocalSettings, userSlice } from "@/app/user/slice"
+import { videosSlice } from "@/app/videos/slice"
 
 export const reducers = {
     entries: entriesSlice.reducer,
@@ -13,6 +14,7 @@ export const reducers = {
     tree: treeSlice.reducer,
     server: serverSlice.reducer,
     user: userSlice.reducer,
+    videos: videosSlice.reducer,
 }
 
 const loadLocalSettings = (): LocalSettings => {

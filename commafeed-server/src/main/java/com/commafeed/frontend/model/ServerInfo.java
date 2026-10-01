@@ -54,4 +54,7 @@ public class ServerInfo implements Serializable {
 
     @Schema(required = true)
     private boolean pushNotificationsEnabled;
+
+    @Schema(required = true)
+    private boolean videoDownloadEnabled;
 }

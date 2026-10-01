@@ -9,6 +9,7 @@ import {
     setMarkAllAsReadConfirmationDialogOpen,
     setSearch,
 } from "@/app/entries/slice"
+import { getScrollContainer, isReadingPaneDisplayed } from "@/app/scrollContainers"
 import type { RootState } from "@/app/store"
 import { reloadTree, selectNextUnreadTreeItem } from "@/app/tree/thunks"
 import type { Entry, MarkRequest, TagRequest } from "@/app/types"
@@ -189,6 +190,10 @@ export const selectEntry = createAppAsyncThunk(
         const entry = state.entries.entries.find(e => e.id === arg.entry.id)
         if (!entry) return
 
+        // in the reading pane layout, entries are displayed in the pane instead of being expanded in the list
+        const readingPane = isReadingPaneDisplayed()
+        const expand = arg.expand && !readingPane
+
         // flushSync is required because we need the newly selected entry to be expanded
         // and the previously selected entry to be collapsed to be able to scroll to the right position
         flushSync(() => {
@@ -210,8 +215,16 @@ export const selectEntry = createAppAsyncThunk(
                     })
                 )
             }
-            thunkApi.dispatch(entriesSlice.actions.setEntryExpanded({ entry, expanded: arg.expand }))
+            thunkApi.dispatch(entriesSlice.actions.setEntryExpanded({ entry, expanded: expand }))
         })
+
+        if (readingPane) {
+            getScrollContainer("readingPane")?.scrollTo({ top: 0 })
+            if (arg.scrollToEntry) {
+                document.getElementById(Constants.dom.entryId(entry))?.scrollIntoView({ block: "nearest" })
+            }
+            return
+        }
 
         if (arg.scrollToEntry) {
             const viewMode = state.user.localSettings.viewMode
@@ -275,6 +288,35 @@ export const selectPreviousEntry = createAppAsyncThunk(
                 })
             )
         }
+    }
+)
+
+/**
+ * Selects the next or previous entry that is a downloadable video, skipping the other entries. Loads more entries when
+ * reaching the end of the list. Returns whether a video was found.
+ */
+export const selectAdjacentVideo = createAppAsyncThunk(
+    "entries/entry/selectAdjacentVideo",
+    async (arg: { direction: "next" | "previous" }, thunkApi) => {
+        const findVideo = () => {
+            const { entries, selectedEntryId } = thunkApi.getState().entries
+            const index = entries.findIndex(e => e.id === selectedEntryId)
+            if (arg.direction === "previous") {
+                return entries.slice(0, Math.max(index, 0)).findLast(e => e.downloadableVideo)
+            }
+            return entries.slice(index + 1).find(e => e.downloadableVideo)
+        }
+
+        let video = findVideo()
+        const { hasMore, loading } = thunkApi.getState().entries
+        if (!video && arg.direction === "next" && hasMore && !loading) {
+            await thunkApi.dispatch(loadMoreEntries())
+            video = findVideo()
+        }
+        if (!video) return false
+
+        thunkApi.dispatch(selectEntry({ entry: video, expand: false, markAsRead: true, scrollToEntry: false }))
+        return true
     }
 )
 

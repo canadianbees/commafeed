@@ -6,8 +6,6 @@ import { loadEntries, loadMoreEntries, markAllEntries, markEntry } from "@/app/e
 import { type RootState, reducers } from "@/app/store"
 import type { Entries, Entry } from "@/app/types"
 
-vi.mock(import("@/app/client"))
-
 describe("entries", () => {
     beforeEach(() => {
         vi.resetAllMocks()
@@ -149,5 +147,21 @@ describe("entries", () => {
             id: "all",
             read: true,
         })
+    })
+})
+
+describe("video position", () => {
+    it("updates where the video of an entry was stopped", async () => {
+        const { setEntryVideoPosition } = await import("@/app/entries/slice")
+        const store = configureStore({
+            reducer: reducers,
+            preloadedState: { entries: { entries: [{ id: "1" } as Entry] } } as unknown as RootState,
+        })
+
+        store.dispatch(setEntryVideoPosition({ id: "1", position: 42 }))
+        expect(store.getState().entries.entries[0].videoPosition).toBe(42)
+
+        store.dispatch(setEntryVideoPosition({ id: "1", position: undefined }))
+        expect(store.getState().entries.entries[0].videoPosition).toBeUndefined()
     })
 })

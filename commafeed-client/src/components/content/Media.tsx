@@ -6,7 +6,7 @@ import { ImageWithPlaceholderWhileLoading } from "@/components/ImageWithPlacehol
 import { Content } from "./Content"
 
 export interface MediaProps {
-    thumbnailUrl: string
+    thumbnailUrl?: string
     thumbnailWidth?: number
     thumbnailHeight?: number
     description?: string
@@ -22,16 +22,18 @@ export function Media(props: Readonly<MediaProps>) {
     })
     return (
         <BasicHtmlStyles>
-            <ImageWithPlaceholderWhileLoading
-                src={props.thumbnailUrl}
-                alt="media thumbnail"
-                width={props.thumbnailWidth}
-                height={props.thumbnailHeight}
-                placeholderWidth={placeholderSize.width}
-                placeholderHeight={placeholderSize.height}
-            />
+            {props.thumbnailUrl && (
+                <ImageWithPlaceholderWhileLoading
+                    src={props.thumbnailUrl}
+                    alt="media thumbnail"
+                    width={props.thumbnailWidth}
+                    height={props.thumbnailHeight}
+                    placeholderWidth={placeholderSize.width}
+                    placeholderHeight={placeholderSize.height}
+                />
+            )}
             {props.description && (
-                <Box pt="md">
+                <Box pt={props.thumbnailUrl ? "md" : undefined}>
                     <Content content={props.description} />
                 </Box>
             )}

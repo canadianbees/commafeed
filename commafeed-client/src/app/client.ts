@@ -33,6 +33,8 @@ import type {
     Subscription,
     TagRequest,
     UserModel,
+    VideoDownloadStatus,
+    VideoInfo,
 } from "./types"
 
 const applicationErrorMessages = {
@@ -72,6 +74,27 @@ export const client = {
         star: async (req: StarRequest) => await axiosInstance.post("entry/star", req),
         getTags: async () => await axiosInstance.get<string[]>("entry/tags"),
         tag: async (req: TagRequest) => await axiosInstance.post("entry/tag", req),
+        requestVideo: async (id: string) => await axiosInstance.post<VideoDownloadStatus>(`entry/video/${id}`),
+        getVideoStatus: async (id: string) => await axiosInstance.get<VideoDownloadStatus>(`entry/video/${id}/status`),
+        getVideoStatuses: async (ids: string[]) =>
+            await axiosInstance.get<Record<string, VideoDownloadStatus>>("entry/video/statuses", {
+                // repeat the parameter (id=1&id=2) instead of axios' default array format (id[]=1&id[]=2)
+                params: new URLSearchParams(ids.map(id => ["id", id])),
+            }),
+        getVideoInfo: async (id: string) => await axiosInstance.get<VideoInfo | "">(`entry/video/${id}/info`),
+        saveVideoPosition: async (id: string, position: number | null) =>
+            await axiosInstance.post(`entry/video/${id}/position`, { position }),
+        /** same as saveVideoPosition, but the request is completed even if the page is being closed */
+        saveVideoPositionOnExit: (id: string, position: number | null) =>
+            fetch(`rest/entry/video/${id}/position`, {
+                method: "POST",
+                keepalive: true,
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ position }),
+            }).catch(() => {
+                // best effort, the position saved last is used instead
+            }),
     },
     feed: {
         get: async (id: string) => await axiosInstance.get<Subscription>(`feed/get/${id}`),

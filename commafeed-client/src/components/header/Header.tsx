@@ -24,6 +24,7 @@ import { ActionButton } from "@/components/ActionButton"
 import { Loader } from "@/components/Loader"
 import { useActionButton } from "@/hooks/useActionButton"
 import { useBrowserExtension } from "@/hooks/useBrowserExtension"
+import { useLayoutMode } from "@/hooks/useLayoutMode"
 import { useMobile } from "@/hooks/useMobile"
 import { ProfileMenu } from "./ProfileMenu"
 
@@ -62,6 +63,8 @@ export function Header() {
     const { isBrowserExtensionPopup, openSettingsPage, openAppInNewTab } = useBrowserExtension()
     const dispatch = useAppDispatch()
     const { _ } = useLingui()
+    // phones in the reading pane layout: previous/next, mark all as read and the unread filter are on the page itself
+    const phone = useLayoutMode() === "phone"
 
     const searchForm = useForm<{ search: string }>()
     const { setValues } = searchForm
@@ -95,53 +98,61 @@ export function Header() {
     return (
         <Center className="cf-toolbar-wrapper">
             <HeaderToolbar>
-                <ActionButton
-                    icon={<TbArrowUp size={iconSize} />}
-                    label={msg`Previous`}
-                    onClick={async () =>
-                        await dispatch(
-                            selectPreviousEntry({
-                                expand: true,
-                                markAsRead: true,
-                                scrollToEntry: true,
-                            })
-                        )
-                    }
-                />
-                <ActionButton
-                    icon={<TbArrowDown size={iconSize} />}
-                    label={msg`Next`}
-                    onClick={async () =>
-                        await dispatch(
-                            selectNextEntry({
-                                expand: true,
-                                markAsRead: true,
-                                scrollToEntry: true,
-                            })
-                        )
-                    }
-                />
+                {!phone && (
+                    <>
+                        <ActionButton
+                            icon={<TbArrowUp size={iconSize} />}
+                            label={msg`Previous`}
+                            onClick={async () =>
+                                await dispatch(
+                                    selectPreviousEntry({
+                                        expand: true,
+                                        markAsRead: true,
+                                        scrollToEntry: true,
+                                    })
+                                )
+                            }
+                        />
+                        <ActionButton
+                            icon={<TbArrowDown size={iconSize} />}
+                            label={msg`Next`}
+                            onClick={async () =>
+                                await dispatch(
+                                    selectNextEntry({
+                                        expand: true,
+                                        markAsRead: true,
+                                        scrollToEntry: true,
+                                    })
+                                )
+                            }
+                        />
 
-                <HeaderDivider />
+                        <HeaderDivider />
+                    </>
+                )}
 
                 <ActionButton
                     icon={<TbRefresh size={iconSize} />}
                     label={msg`Refresh`}
                     onClick={async () => await dispatch(reloadEntries())}
                 />
-                <ActionButton
-                    icon={<TbChecks size={iconSize} />}
-                    label={msg`Mark all as read`}
-                    onClick={() => dispatch(markAllAsReadWithConfirmationIfRequired())}
-                />
+                {!phone && (
+                    <>
+                        <ActionButton
+                            icon={<TbChecks size={iconSize} />}
+                            label={msg`Mark all as read`}
+                            onClick={() => dispatch(markAllAsReadWithConfirmationIfRequired())}
+                        />
 
-                <HeaderDivider />
+                        <HeaderDivider />
 
-                <ActionButton
-                    icon={settings.readingMode === "all" ? <TbEye size={iconSize} /> : <TbEyeOff size={iconSize} />}
-                    label={settings.readingMode === "all" ? msg`All` : msg`Unread`}
-                    onClick={toggleReadingMode}
-                />
+                        <ActionButton
+                            icon={settings.readingMode === "all" ? <TbEye size={iconSize} /> : <TbEyeOff size={iconSize} />}
+                            label={settings.readingMode === "all" ? msg`All` : msg`Unread`}
+                            onClick={toggleReadingMode}
+                        />
+                    </>
+                )}
                 <ActionButton
                     icon={settings.readingOrder === "asc" ? <TbSortAscending size={iconSize} /> : <TbSortDescending size={iconSize} />}
                     label={settings.readingOrder === "asc" ? msg`Asc` : msg`Desc`}
